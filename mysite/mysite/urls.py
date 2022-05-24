@@ -25,6 +25,8 @@ from django.urls import path, re_path, include
 # from app1.views import add // this import specific method
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,7 +46,8 @@ urlpatterns = [
     path('datacart/',views.datacart),
     path('contact/',views.contact),
     path('product/',views.product),
-
+    url(r'^media/(?p<path>.*)$',serve,{'dcoument_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?p<path>.*)$',serve,{'dcoument_root': settings.STATIC_ROOT}),
 ]
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
